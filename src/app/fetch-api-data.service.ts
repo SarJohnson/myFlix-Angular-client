@@ -15,15 +15,15 @@ export class FetchApiDataService {
     const token = localStorage.getItem('token');
     return new HttpHeaders({ Authorization: 'Bearer ' + token });
   }
-  public userRegistration(userDetails: any): Observable<any> {
-    console.log(userDetails);
-    return this.http.post(apiUrl + 'users', userDetails).pipe(
+  public userRegistration(userData: any): Observable<any> {
+    console.log(userData);
+    return this.http.post(apiUrl + 'users', userData).pipe(
       catchError(this.handleError)
     );
   }
-  public userLogin(credentials: any): Observable<any> {
-    console.log(credentials);
-    return this.http.post(apiUrl + 'login', credentials).pipe(
+  public userLogin(userData: any): Observable<any> {
+    console.log(userData);
+    return this.http.post(apiUrl + 'login', userData).pipe(
       catchError(this.handleError)
     );
   }
@@ -52,8 +52,8 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  public editUser(Username: string, userDetails: any): Observable<any> {
-    return this.http.put(apiUrl + 'users/' + Username, userDetails, {headers: this.createAuthHeader() }).pipe(
+  public editUser(Username: string, userData: any): Observable<any> {
+    return this.http.put(apiUrl + 'users/' + Username, userData, {headers: this.createAuthHeader() }).pipe(
       catchError(this.handleError)
     );
   }
