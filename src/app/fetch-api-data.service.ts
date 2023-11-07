@@ -15,6 +15,10 @@ export class FetchApiDataService {
     const token = localStorage.getItem('token');
     return new HttpHeaders({ Authorization: 'Bearer ' + token });
   }
+  private extractResponseData(res: Response | Object): any {
+    const body = res;
+    return body || {};
+  }
   public userRegistration(userData: any): Observable<any> {
     console.log(userData);
     return this.http.post(apiUrl + 'users', userData).pipe(
@@ -26,6 +30,13 @@ export class FetchApiDataService {
     return this.http.post(apiUrl + 'login', userData).pipe(
       catchError(this.handleError)
     );
+  }
+  public getLoggedInUser(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.Username) {
+      return this.getUser(user.Username);
+    }
+    return throwError('User not found');
   }
   public getAllMovies(): Observable<any> {
     return this.http.get(apiUrl + 'movies', {headers: this.createAuthHeader() }).pipe(
@@ -62,14 +73,41 @@ export class FetchApiDataService {
       catchError(this.handleError)
     );
   }
-  public addFavorite(Username: string, MovieID: string): Observable<any> {
-    return this.http.post(apiUrl + 'users/' + Username + 'movies/' + MovieID, {headers: this.createAuthHeader() }).pipe(
+  public addFavorite(Username: string, movieId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    })
+    return this.http.post(`https://sarjohnsonmyflix-4f5de10aa490.herokuapp.com/users/${Username}/movies/${movieId}`, {}, { headers }).pipe(
+      map(this.extractResponseData), 
       catchError(this.handleError)
+    ).pipe(
+      map((response: any) => {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        user.favorites.push(movieId);
+        localStorage.setItem('user', JSON.stringify(user));
+        return response;
+      })
     );
   }
-  public deleteFavorite(Username: string, MovieID: string): Observable<any> {
-    return this.http.delete(apiUrl + 'users/' + Username + 'movies/' + MovieID, {headers: this.createAuthHeader() }).pipe(
+  public deleteFavorite(Username: string, movieId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    })
+    return this.http.delete(`https://sarjohnsonmyflix-4f5de10aa490.herokuapp.com/users/${Username}/movies/${movieId}`, { headers }).pipe(
+      map(this.extractResponseData),
       catchError(this.handleError)
+    ).pipe(
+      map((response: any) => {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const index = user.favorites.indexOf(movieId);
+        if (index >=0) {
+          user.favorties.splice(index, 1);
+        }
+        localStorage.setItem('user', JSON.stringify(user));
+        return response;
+      })
     );
   }
   private handleError(error: HttpErrorResponse): any {
