@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './navigation-bar.component.html',
   styleUrls: ['./navigation-bar.component.scss']
 })
-export class NavbarComponent {
+export class NavigationBarComponent {
   constructor(
     public fetchApiData: FetchApiDataService,
     public router: Router
   ) { }
 
-  logoutUser(): void {
+  logoutUser(): void { //logout user method that removes user from local storage and navigates to welcome route
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     this.router.navigate(['welcome']);

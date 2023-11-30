@@ -18,9 +18,9 @@ import { UserRegistrationFormComponent } from './user-registration-form/user-reg
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
-import { MovieDetailDialogComponent } from './movie-dialog/movie-dialog.component';
+import { MovieDialogComponent } from './movie-dialog/movie-dialog.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { NavbarComponent } from './navigation-bar/navigation-bar.component';
+import { NavigationBarComponent } from './navigation-bar/navigation-bar.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -36,18 +36,18 @@ const appRoutes: Routes = [
     UserLoginFormComponent,
     MovieCardComponent,
     WelcomePageComponent,
-    MovieDetailDialogComponent,
+    MovieDialogComponent,
     ProfilePageComponent,
-    NavbarComponent
+    NavigationBarComponent
   ],
 
   imports: [
-    RouterModule.forRoot(appRoutes),
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
+    RouterModule.forRoot(appRoutes), //configures the router with the provided routes
+    BrowserModule, //provides services that are essential to launch and run a browser application
+    HttpClientModule, //enables the usage of HTTP services in the application
+    AppRoutingModule, //custom module for application routing
+    BrowserAnimationsModule, //enables support for animations
+    FormsModule, //enables two-way data binding
     MatDialogModule,
     MatInputModule,
     MatButtonModule,

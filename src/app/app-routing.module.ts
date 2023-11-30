@@ -4,10 +4,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [];
 
-@NgModule({
+@NgModule({ 
   imports: [
-    RouterModule.forRoot(routes),
-    HttpClientModule, 
+    RouterModule.forRoot(routes), //configures the router with the provided routes
+    HttpClientModule, //enables the usage of HTTP services in the application
   ],
   exports: [RouterModule]
 })

@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserLoginFormComponent implements OnInit {
 
-  @Input() userData = { Username: '', Password: '' };
+  @Input() userData = { Username: '', Password: '' }; //object representing user data for login input
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -19,9 +19,9 @@ export class UserLoginFormComponent implements OnInit {
     public snackBar: MatSnackBar,
     private router: Router
   ) { }
-  ngOnInit(): void { }
+  ngOnInit(): void { } //lifecycle hook
 
-  loginUser(): void {
+  loginUser(): void { //login user method
     this.fetchApiData.userLogin(this.userData).subscribe({
       next: (data) => {
         localStorage.setItem('user', JSON.stringify(data.user));

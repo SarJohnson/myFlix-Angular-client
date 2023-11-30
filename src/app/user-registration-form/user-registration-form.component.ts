@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class UserRegistrationFormComponent implements OnInit {
 
-  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' };
+  @Input() userData = { Username: '', Password: '', Email: '', Birthday: '' }; //object representing user data for registration input
 
 constructor(
     public fetchApiData: FetchApiDataService,
@@ -20,8 +20,8 @@ constructor(
     public router: Router
     
 ) { }
-ngOnInit(): void {}
-  registerUser(): void {
+ngOnInit(): void {} //life4cycle hook
+  registerUser(): void { //register user method
     this.fetchApiData.userRegistration(this.userData).subscribe((result) => {
       this.dialogRef.close(); 
       this.snackBar.open('user registered successfully!', 'OK', {
