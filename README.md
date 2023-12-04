@@ -7,7 +7,7 @@ A remake of the horror movie website using Angular that allows users to access d
 </br>
 -Angular Material
 </br>
--Typescript
+-TypeDoc
 ### Links
 Live- https://sarjohnson.github.io/myFlix-Angular-client
 </br>
